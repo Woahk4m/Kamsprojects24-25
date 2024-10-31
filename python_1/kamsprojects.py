@@ -1,5 +1,3 @@
-import keyboard  # Make sure to install the keyboard library with `pip install keyboard`
-
 def age_verification():
     print("Welcome to the RACES WITH KAM!")
 
@@ -62,27 +60,25 @@ def choose_car_model():
             print("Invalid input. Please enter a valid number.")
 
     # Choose specific car models based on type
-    if chosen_type == "Sedan":
-        models = ["Toyota Camry", "Honda Accord", "Ford Fusion"]
-    elif chosen_type == "SUV":
-        models = ["Toyota RAV4", "Honda CR-V", "Ford Explorer"]
-    elif chosen_type == "Sports Car":
-        models = ["Ferrari 488", "Porsche 911", "Chevrolet Corvette"]
-    elif chosen_type == "Truck":
-        models = ["Ford F-150", "Chevrolet Silverado", "Ram 1500"]
-
+    models = {
+        "Sedan": ["Toyota Camry", "Honda Accord", "Ford Fusion"],
+        "SUV": ["Toyota RAV4", "Honda CR-V", "Ford Explorer"],
+        "Sports Car": ["Ferrari 488", "Porsche 911", "Chevrolet Corvette"],
+        "Truck": ["Ford F-150", "Chevrolet Silverado", "Ram 1500"]
+    }
+    
     print(f"\nChoose your car model for {chosen_type}:")
-    for i, model in enumerate(models, start=1):
+    for i, model in enumerate(models[chosen_type], start=1):
         print(f"{i}. {model}")
 
     while True:
         try:
             model_choice = int(input("Enter the number corresponding to your choice: "))
-            if 1 <= model_choice <= len(models):
-                chosen_model = models[model_choice - 1]
+            if 1 <= model_choice <= len(models[chosen_type]):
+                chosen_model = models[chosen_type][model_choice - 1]
                 return chosen_type, chosen_model
             else:
-                print(f"Invalid choice. Please enter a number between 1 and {len(models)}.")
+                print(f"Invalid choice. Please enter a number between 1 and {len(models[chosen_type])}.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
@@ -122,37 +118,36 @@ def customize_car():
 
 def show_instructions():
     print("\nInstructions:")
-    print("1. Use 'W' to accelerate.")
-    print("2. Use 'S' to brake.")
-    print("3. Use 'A' to turn left.")
-    print("4. Use 'D' to turn right.")
-    print("5. Use arrow keys for directional control.")
-    print("6. Press 'Q' to quit the simulation.\n")
+    print("1. Type 'accelerate' to accelerate.")
+    print("2. Type 'brake' to brake.")
+    print("3. Type 'turn left' to turn left.")
+    print("4. Type 'turn right' to turn right.")
+    print("5. Type 'up' to move up.")
+    print("6. Type 'down' to move down.")
+    print("7. Type 'left' to move left.")
+    print("8. Type 'right' to move right.")
+    print("9. Type 'quit' to exit the simulation.\n")
 
 def car_simulation():
     print("Car Simulation Started!")
     show_instructions()
 
     while True:
-        if keyboard.is_pressed('w'):
+        action = input("Enter your action: ").strip().lower()
+        
+        if action == 'accelerate':
             print("Accelerating...")
-        elif keyboard.is_pressed('s'):
+        elif action == 'brake':
             print("Braking...")
-        elif keyboard.is_pressed('a'):
+        elif action == 'turn left':
             print("Turning Left...")
-        elif keyboard.is_pressed('d'):
+        elif action == 'turn right':
             print("Turning Right...")
-        elif keyboard.is_pressed('up'):
-            print("Moving Up...")
-        elif keyboard.is_pressed('down'):
-            print("Moving Down...")
-        elif keyboard.is_pressed('left'):
-            print("Moving Left...")
-        elif keyboard.is_pressed('right'):
-            print("Moving Right...")
-        elif keyboard.is_pressed('q'):
-            print("Exiting the simulation. Thanks for playing!")
+        elif action == 'quit':
+            print("Thanks for playing!! i hope you had fun!! Come back soon and upgrade")
             break
+        else:
+            print("Invalid action. Please try again.")
 
 def main():
     accounts = {}
