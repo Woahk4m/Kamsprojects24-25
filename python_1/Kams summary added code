@@ -3,7 +3,7 @@ def age_verification():
 
     # Get user input for name
     user_name = input("Please enter your name: ")
-    print(f"Hello ,{user_name} ! Let's verify your age.")
+    print(f"Hello, {user_name}! Let's verify your age.")
 
     # Get user input for age
     age_input = input("Please enter your age: ")
@@ -13,13 +13,13 @@ def age_verification():
         age = int(age_input)
         if age >= 18:
             print(f"Great, {user_name}! You are {age} years old, and you are eligible.")
-            return True
+            return user_name, True
         else:
             print(f"Sorry, {user_name}. You are {age} years old, so you are not eligible.")
-            return False
+            return user_name, False
     else:
         print("Invalid input! Please enter a valid number for your age.")
-        return False
+        return user_name, False
 
 def create_account(accounts):
     username = input("Enter a new username: ")
@@ -36,10 +36,10 @@ def login(accounts):
     
     if username in accounts and accounts[username] == password:
         print("Login successful! Welcome back!")
-        return True
+        return username, True
     else:
         print("Invalid username or password. Please try again.")
-        return False
+        return None, False
 
 def choose_car_model():
     print("Choose your car type:")
@@ -116,6 +116,8 @@ def customize_car():
     print(f"Car Model: {chosen_model}")
     print(f"Car Color: {chosen_color}")
 
+    return tag, chosen_type, chosen_model, chosen_color
+
 def show_instructions():
     print("\nInstructions:")
     print("1. Type 'accelerate' to accelerate.")
@@ -128,7 +130,7 @@ def show_instructions():
     print("8. Type 'right' to move right.")
     print("9. Type 'quit' to exit the simulation.\n")
 
-def car_simulation():
+def car_simulation(actions_taken):
     print("Car Simulation Started!")
     show_instructions()
 
@@ -137,22 +139,36 @@ def car_simulation():
         
         if action == 'accelerate':
             print("Accelerating...")
+            actions_taken.append(action)
         elif action == 'brake':
             print("Braking...")
+            actions_taken.append(action)
         elif action == 'turn left':
             print("Turning Left...")
+            actions_taken.append(action)
         elif action == 'turn right':
             print("Turning Right...")
+            actions_taken.append(action)
         elif action == 'quit':
-            print("Thanks for playing!! i hope you had fun!! Come back soon and upgrade")
+            print("Thanks for playing! I hope you had fun! Come back soon and upgrade.")
             break
         else:
             print("Invalid action. Please try again.")
 
+def activity_summary(user_name, tag, chosen_type, chosen_model, chosen_color, actions_taken):
+    print("\nActivity Summary:")
+    print(f"User Name: {user_name}")
+    print(f"Car Tag: {tag}")
+    print(f"Car Type: {chosen_type}")
+    print(f"Car Model: {chosen_model}")
+    print(f"Car Color: {chosen_color}")
+    print(f"Actions Taken in Simulation: {', '.join(actions_taken)}")
+
 def main():
     accounts = {}
     
-    if not age_verification():
+    user_name, age_verified = age_verification()
+    if not age_verified:
         return  # Exit if the age verification fails
     
     while True:
@@ -164,7 +180,8 @@ def main():
         if choice == '1':
             create_account(accounts)
         elif choice == '2':
-            if login(accounts):
+            username, logged_in = login(accounts)
+            if logged_in:
                 break  # Exit the loop if login is successful
         elif choice == '3':
             print("Exiting the program.")
@@ -172,8 +189,12 @@ def main():
         else:
             print("Invalid choice. Please try again.")
 
-    customize_car()
-    car_simulation()
+    tag, chosen_type, chosen_model, chosen_color = customize_car()
+    actions_taken = []
+    car_simulation(actions_taken)
+
+    # Display activity summary at the end
+    activity_summary(user_name, tag, chosen_type, chosen_model, chosen_color, actions_taken)
 
 if __name__ == "__main__":
     main()
