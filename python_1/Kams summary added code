@@ -1,14 +1,12 @@
-def age_verification():
+# Function to verify user's age
+def verify_age():
+    """Prompt the user to input their age and verify eligibility based on it."""
     print("Welcome to the RACES WITH KAM!")
-
-    # Get user input for name
     user_name = input("Please enter your name: ")
     print(f"Hello, {user_name}! Let's verify your age.")
 
-    # Get user input for age
+    # Get and validate user age input
     age_input = input("Please enter your age: ")
-
-    # Check if the age is a valid number
     if age_input.isdigit():
         age = int(age_input)
         if age >= 18:
@@ -21,7 +19,9 @@ def age_verification():
         print("Invalid input! Please enter a valid number for your age.")
         return user_name, False
 
+# Function to create a new account
 def create_account(accounts):
+    """Create a new account with a unique username and password."""
     username = input("Enter a new username: ")
     if username in accounts:
         print("Username already exists. Please choose a different one.")
@@ -30,7 +30,9 @@ def create_account(accounts):
         accounts[username] = password
         print("Account created successfully!")
 
+# Function to log into an existing account
 def login(accounts):
+    """Login to an existing account by validating username and password."""
     username = input("Enter your username: ")
     password = input("Enter your password: ")
     
@@ -41,25 +43,26 @@ def login(accounts):
         print("Invalid username or password. Please try again.")
         return None, False
 
+# Function to choose a car model
 def choose_car_model():
+    """Display car types and models for selection and return the chosen model details."""
     print("Choose your car type:")
     car_types = ["Sedan", "SUV", "Sports Car", "Truck"]
     
-    for i, car_type in enumerate(car_types, start=1):
-        print(f"{i}. {car_type}")
+    for option_number, car_type in enumerate(car_types, start=1):
+        print(f"{option_number}. {car_type}")
 
     while True:
         try:
-            type_choice = int(input("Enter the number corresponding to your choice: "))
-            if 1 <= type_choice <= len(car_types):
-                chosen_type = car_types[type_choice - 1]
+            car_choice = int(input("Enter the number corresponding to your choice: "))
+            if 1 <= car_choice <= len(car_types):
+                selected_type = car_types[car_choice - 1]
                 break
             else:
                 print(f"Invalid choice. Please enter a number between 1 and {len(car_types)}.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
-    # Choose specific car models based on type
     models = {
         "Sedan": ["Toyota Camry", "Honda Accord", "Ford Fusion"],
         "SUV": ["Toyota RAV4", "Honda CR-V", "Ford Explorer"],
@@ -67,70 +70,66 @@ def choose_car_model():
         "Truck": ["Ford F-150", "Chevrolet Silverado", "Ram 1500"]
     }
     
-    print(f"\nChoose your car model for {chosen_type}:")
-    for i, model in enumerate(models[chosen_type], start=1):
-        print(f"{i}. {model}")
+    print(f"\nChoose your car model for {selected_type}:")
+    for model_number, model in enumerate(models[selected_type], start=1):
+        print(f"{model_number}. {model}")
 
     while True:
         try:
             model_choice = int(input("Enter the number corresponding to your choice: "))
-            if 1 <= model_choice <= len(models[chosen_type]):
-                chosen_model = models[chosen_type][model_choice - 1]
-                return chosen_type, chosen_model
+            if 1 <= model_choice <= len(models[selected_type]):
+                selected_model = models[selected_type][model_choice - 1]
+                return selected_type, selected_model
             else:
-                print(f"Invalid choice. Please enter a number between 1 and {len(models[chosen_type])}.")
+                print(f"Invalid choice. Please enter a number between 1 and {len(models[selected_type])}.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
+# Function to customize the car
 def customize_car():
+    """Customize car with user-selected tag, type, model, and color."""
     print("Welcome to the Car Customization!")
-    
-    # Get the car tag from the user
     tag = input("Enter a tag for your car (e.g., 'FastCar123'): ")
     
-    # Choose car model
-    chosen_type, chosen_model = choose_car_model()
+    car_type, car_model = choose_car_model()
 
-    # Choose a color for your car
     print("Choose a color for your car:")
     colors = ["Red", "Blue", "Green", "Black", "White", "Pink", "Grey"]
-    for i, color in enumerate(colors, start=1):
-        print(f"{i}. {color}")
+    for color_index, color in enumerate(colors, start=1):
+        print(f"{color_index}. {color}")
 
     while True:
         try:
             color_choice = int(input("Enter the number corresponding to your choice: "))
             if 1 <= color_choice <= len(colors):
-                chosen_color = colors[color_choice - 1]
+                selected_color = colors[color_choice - 1]
                 break
             else:
-                print("Invalid choice, defaulting to 'Black'.")
-                chosen_color = "Black"
-                break
+                print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+            selected_color = "Black"  # Default color if invalid input continues
 
-    # Summary of customization
     print("\nCustomization Summary:")
     print(f"Car Tag: {tag}")
-    print(f"Car Model: {chosen_model}")
-    print(f"Car Color: {chosen_color}")
+    print(f"Car Model: {car_model}")
+    print(f"Car Color: {selected_color}")
 
-    return tag, chosen_type, chosen_model, chosen_color
+    return tag, car_type, car_model, selected_color
 
+# Function to display instructions for car simulation
 def show_instructions():
+    """Display instructions for controlling the car in the simulation."""
     print("\nInstructions:")
     print("1. Type 'accelerate' to accelerate.")
     print("2. Type 'brake' to brake.")
     print("3. Type 'turn left' to turn left.")
     print("4. Type 'turn right' to turn right.")
-    print("5. Type 'up' to move up.")
-    print("6. Type 'down' to move down.")
-    print("7. Type 'left' to move left.")
-    print("8. Type 'right' to move right.")
-    print("9. Type 'quit' to exit the simulation.\n")
+    print("5. Type 'quit' to exit the simulation.\n")
 
-def car_simulation(actions_taken):
+# Function to simulate car actions
+def car_simulation(actions):
+    """Simulate driving actions taken by the user."""
     print("Car Simulation Started!")
     show_instructions()
 
@@ -139,62 +138,64 @@ def car_simulation(actions_taken):
         
         if action == 'accelerate':
             print("Accelerating...")
-            actions_taken.append(action)
+            actions.append(action)
         elif action == 'brake':
             print("Braking...")
-            actions_taken.append(action)
+            actions.append(action)
         elif action == 'turn left':
             print("Turning Left...")
-            actions_taken.append(action)
+            actions.append(action)
         elif action == 'turn right':
             print("Turning Right...")
-            actions_taken.append(action)
+            actions.append(action)
         elif action == 'quit':
-            print("Thanks for playing! I hope you had fun! Come back soon and upgrade.")
+            print("Thanks for playing! Come back soon.")
             break
         else:
             print("Invalid action. Please try again.")
 
-def activity_summary(user_name, tag, chosen_type, chosen_model, chosen_color, actions_taken):
+# Function to summarize the user activity at the end
+def display_activity_summary(user_name, tag, car_type, car_model, car_color, actions):
+    """Display a summary of the user's customization and actions."""
     print("\nActivity Summary:")
     print(f"User Name: {user_name}")
     print(f"Car Tag: {tag}")
-    print(f"Car Type: {chosen_type}")
-    print(f"Car Model: {chosen_model}")
-    print(f"Car Color: {chosen_color}")
-    print(f"Actions Taken in Simulation: {', '.join(actions_taken)}")
+    print(f"Car Type: {car_type}")
+    print(f"Car Model: {car_model}")
+    print(f"Car Color: {car_color}")
+    print(f"Actions Taken in Simulation: {', '.join(actions)}")
 
+# Main function to control the program flow
 def main():
     accounts = {}
-    
-    user_name, age_verified = age_verification()
+    user_name, age_verified = verify_age()
     if not age_verified:
         return  # Exit if the age verification fails
-    
+
     while True:
         print("\n1. Create Account")
         print("2. Login")
         print("3. Exit")
-        choice = input("Choose an option: ")
+        user_choice = input("Choose an option: ")
 
-        if choice == '1':
+        if user_choice == '1':
             create_account(accounts)
-        elif choice == '2':
+        elif user_choice == '2':
             username, logged_in = login(accounts)
             if logged_in:
-                break  # Exit the loop if login is successful
-        elif choice == '3':
+                break  # Exit loop if login is successful
+        elif user_choice == '3':
             print("Exiting the program.")
             return
         else:
             print("Invalid choice. Please try again.")
 
-    tag, chosen_type, chosen_model, chosen_color = customize_car()
+    tag, car_type, car_model, car_color = customize_car()
     actions_taken = []
     car_simulation(actions_taken)
 
     # Display activity summary at the end
-    activity_summary(user_name, tag, chosen_type, chosen_model, chosen_color, actions_taken)
+    display_activity_summary(user_name, tag, car_type, car_model, car_color, actions_taken)
 
 if __name__ == "__main__":
     main()
