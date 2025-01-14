@@ -3,8 +3,14 @@ using System;
 
 class Program
 {
-    static void Main()
+    public static void Main()
     {
         Console.WriteLine("Hello, World!");
+        float myNum = 5.75F;
+        Console.WriteLine(myNum);
+        int myNum2 = 100000;
+        Console.WriteLine(myNum);
     }
 }
+
+  
