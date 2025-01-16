@@ -12,15 +12,14 @@ class Program
         int myNum2 = 100000;
         Console.WriteLine(myNum);
         if (myNum>100.00){
-            Console.WriteLine("the number is bigger than 100");
+            Console.WriteLine("The number is bigger than 100");
 
         }
         else{
-             Console.WriteLine("the number is small than 100");
+             Console.WriteLine("the number is smaller than 100");
 
         }
 
     }
 }
 
-  
