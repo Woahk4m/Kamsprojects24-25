@@ -5,7 +5,10 @@ class Program
 {
     // Private instance variables
     private float myNum;
-    private int myNum2;
+    public int myNum2;
+
+    // Array for ticket prices
+    private float[] ticketPrices = { 10.0F, 15.0F, 20.0F, 25.0F, 30.0F }; // Example prices
 
     // Public method to initialize values
     public void InitializeValues()
@@ -22,7 +25,7 @@ class Program
         Console.WriteLine(myNum2);   // Print myNum2
 
         // For loop to print ticket numbers
-        for (int count = 0; count < 60; count++)
+        for (int count = 0; count < 5; count++)
         {
             Console.WriteLine("Ticket number " + (count + 1)); // Consistent casing
         }
@@ -45,6 +48,12 @@ class Program
         else
         {
             Console.WriteLine("Okay, good, it's less than 20 tickets.");
+        }
+
+        Console.WriteLine("Ticket Prices: ");
+        for (int i = 0; i < ticketPrices.Length; i++) // Fixed array access and loop variable
+        {
+            Console.WriteLine($"Ticket {i + 1}: ${ticketPrices[i]}");    
         }
     }
 
