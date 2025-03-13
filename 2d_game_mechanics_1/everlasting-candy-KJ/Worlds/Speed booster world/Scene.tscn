@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2kvde7swdud1"]
+[gd_scene load_steps=4 format=3 uid="uid://cu3qbni1rh8tv"]
 
 [ext_resource type="Script" path="res://Worlds/Speed booster world/scene.gd" id="1_lovem"]
 [ext_resource type="Texture2D" uid="uid://baicog3vi1hqw" path="res://Worlds/Speed booster world/speedboost.png" id="2_hedmc"]
